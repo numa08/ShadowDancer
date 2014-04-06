@@ -9,4 +9,5 @@ vms
 **/out
 **/project/plugins/project/
 
+**/.idea
 .DS_Store
