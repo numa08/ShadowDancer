@@ -9,4 +9,7 @@ vms
 **/out
 **/project/plugins/project/
 
+## config file for app
+**/DancerText
+**/.idea
 .DS_Store
