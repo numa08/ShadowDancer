@@ -33,7 +33,7 @@ object App {
 
     val paths = dancerText
       .xmlPats
-      .map(new File(_))
+      .map(_.dir)
       .map(Dir(_))
 
     paths.filter(_.isInstanceOf[InvalidDir])
