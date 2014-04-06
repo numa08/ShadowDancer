@@ -6,6 +6,7 @@ import util.FileWrapper._
 import scala.io.Source
 import com.twitter.util.Eval
 import net.numa08.dsl.DancerText
+import net.numa08.dir.{ InvalidDir, ValidDir, Dir }
 
 /** The launched conscript entry point */
 class App extends xsbti.AppMain {
@@ -20,17 +21,28 @@ object App {
    * returns the process status code
    */
   def run(args: Array[String]): Int = {
-    val retval = new File("DancerText")
+    val dancerText = new File("DancerText")
       .asOpt
       .map { f =>
-        val code = Source.fromFile(f).mkString("import net.numa08.dsl._\n", "", "")
+        val code = Source.fromFile(f).mkString("")
         new Eval()[DancerText](code)
-        0
       }.getOrElse {
         sys.error("DancerText is not exist")
-        1
+        sys.exit(1)
       }
-    retval
+
+    val paths = dancerText
+      .xmlPats
+      .map(new File(_))
+      .map(Dir(_))
+
+    paths.filter(_.isInstanceOf[InvalidDir])
+      .foreach { d =>
+        println(s"$d is invalid xml dir path")
+      }
+
+    paths.collect { case d: ValidDir => d }
+    0
   }
   /** Standard runnable class entrypoint */
   def main(args: Array[String]) {
