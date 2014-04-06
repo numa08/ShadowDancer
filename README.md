@@ -1,6 +1,11 @@
 ShadowDancer
 ============
 
-## 影と踊れ
+## let's dance with the shadow
 
-[バグトラッキングシステム影舞](http://www.daifukuya.com/kagemai/)の生成するXMLを[Redmine](http://redmine.jp/),[Gitlab](https://www.gitlab.com/),[Github](https://github.com/)のissueに登録するツール
+ShadowDancer converts  XML(created by [Kagemai](http://www.daifukuya.com/kagemai/)) to ticket that managed by other system.
+
+We will support Services like
+
+ - [Gitlab](https://www.gitlab.com/)
+ - [Redmine](http://www.redmine.org/)
