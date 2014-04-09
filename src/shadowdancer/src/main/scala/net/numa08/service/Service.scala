@@ -7,5 +7,5 @@ trait Service {
   val projectId: Int
   val toke: String
 
-  def createTask(task : Task)
+  def createTask(task: Task)
 }

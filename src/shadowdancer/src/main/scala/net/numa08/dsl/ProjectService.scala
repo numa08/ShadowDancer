@@ -13,19 +13,19 @@ object convention {
   }
 
   implicit class ProjectDirWith(val projectDir: (String, BtsServices.BtsService)) extends AnyVal {
-    def at(project: String): (String, BtsServices.BtsService, String) = {
+    def at(project: Int): (String, BtsServices.BtsService, Int) = {
       (projectDir._1, projectDir._2, project)
     }
   }
 
-  implicit class ProjectServiceWith(val projectService: (String, BtsServices.BtsService, String)) extends AnyVal {
+  implicit class ProjectServiceWith(val projectService: (String, BtsServices.BtsService, Int)) extends AnyVal {
     def on(url: String): ProjectService = {
       ProjectService(projectService._1, projectService._2, projectService._3, url)
     }
   }
 }
 
-case class ProjectService(path: String, service: BtsServices.BtsService, project: String, url: String) {
+case class ProjectService(path: String, service: BtsServices.BtsService, project: Int, url: String) {
 
   def dir: File = new File(path)
 
