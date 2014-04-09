@@ -4,8 +4,8 @@ import net.numa08.kagemai.Report
 
 trait Task {
 
-  val report : Report
+  val report: Report
 
-  def toMap ; Map[String, String]
+  def toMap: Map[String, String]
 
 }
