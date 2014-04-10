@@ -6,6 +6,6 @@ trait Task {
 
   val report: Report
 
-  def toMap: Map[String, String]
-
+  def title: String
+  def description: String
 }
