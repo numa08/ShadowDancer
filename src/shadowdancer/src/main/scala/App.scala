@@ -5,8 +5,12 @@ import java.io.File
 import util.FileWrapper._
 import scala.io.Source
 import com.twitter.util.Eval
-import net.numa08.dsl.DancerText
 import net.numa08.dir.{ InvalidDir, ValidDir, Dir }
+import net.numa08.dsl.{ Gitlab, BtsServices, DancerText }
+import scala.xml.XML
+import net.numa08.kagemai.Report
+import net.numa08.gitlab.Issue
+import java.net.URL
 
 /** The launched conscript entry point */
 class App extends xsbti.AppMain {
@@ -24,24 +28,37 @@ object App {
     val dancerText = new File("DancerText")
       .asOpt
       .map { f =>
-        val code = Source.fromFile(f).mkString("")
+        val code = Source.fromFile(f).mkString("import net.numa08.dsl.convention._\nimport net.numa08.dsl.BtsServices._\nimport net.numa08.dsl.DancerText\n", "", "")
+
         new Eval()[DancerText](code)
       }.getOrElse {
         sys.error("DancerText is not exist")
         sys.exit(1)
       }
 
-    val paths = dancerText
-      .xmlPats
+    dancerText
+      .xmlPaths
       .map(_.dir)
       .map(Dir(_))
+      .collect { case i: InvalidDir => i }
+      .map(d => s"${d} is invalid xml directory path")
+      .foreach(println(_))
 
-    paths.filter(_.isInstanceOf[InvalidDir])
-      .foreach { d =>
-        println(s"$d is invalid xml dir path")
+    dancerText
+      .xmlPaths
+      .filter(services => Dir(services.dir).isInstanceOf[ValidDir])
+      .foreach { paths =>
+        paths.dir.listFiles.foreach { xmlFile =>
+          val xml = XML.loadFile(xmlFile)
+          val report = Report.byXml(xml)
+          val task = paths.service match {
+            case BtsServices.Gitlab => (Issue(report, new URL(paths.url)), new net.numa08.gitlab.Gitlab(dancerText.services.gitlab.entryPoint, paths.project, dancerText.services.gitlab.token))
+          }
+
+          task._2.createTask(task._1)
+        }
       }
 
-    paths.collect { case d: ValidDir => d }
     0
   }
   /** Standard runnable class entrypoint */

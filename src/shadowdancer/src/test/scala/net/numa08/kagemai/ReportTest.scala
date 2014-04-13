@@ -68,4 +68,10 @@ class ReportTest extends FunSuite {
     assert(report.id == -1)
   }
 
+  test("load file") {
+    val xml = XML.loadFile("1.xml")
+    val report = Report.byXml(xml)
+
+    assert(report.id == 1)
+  }
 }
