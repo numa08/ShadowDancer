@@ -74,4 +74,16 @@ class ReportTest extends FunSuite {
 
     assert(report.id == 1)
   }
+
+  test("ja name to Status") {
+    val jaName = "新規"
+    val status = Report.Status.withJAName(jaName)
+    assert(status == Report.Status.New)
+  }
+
+  test("active status") {
+    val s = Report.Status.New
+    val active = Report.Status.active
+    assert(active.contains(s))
+  }
 }
