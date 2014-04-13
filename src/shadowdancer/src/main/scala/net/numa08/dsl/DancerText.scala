@@ -11,7 +11,7 @@ object DancerText {
   }
 }
 
-protected case class DancerText(services: Services, xmlPats: ArrayBuffer[ProjectService])
+protected case class DancerText(services: Services, xmlPaths: ArrayBuffer[ProjectService])
 
 trait service {
   var entryPoint: String
