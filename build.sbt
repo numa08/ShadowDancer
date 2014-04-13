@@ -2,9 +2,9 @@ seq(conscriptSettings :_*)
 
 organization := "net.numa08"
 
-name := "ShadowDancer"
+name := "sdancer"
 
-version := "0.1.0"
+version := "0.6.0"
 
 resolvers += "Local" at "file://" + Path.userHome.absolutePath + "/.m2/repository"
 
