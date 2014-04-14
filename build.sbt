@@ -13,3 +13,9 @@ libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.10" % "2.0" % "test",
   "org.gitlab" % "java-gitlab-api" % "1.1.3"
 )
+
+libraryDependencies ++= Seq(
+  "com.typesafe" %% "scalalogging-slf4j" % "1.1.0",
+  "org.slf4j" % "slf4j-api" % "1.7.1",
+  "ch.qos.logback" % "logback-classic" % "1.0.7"
+)
