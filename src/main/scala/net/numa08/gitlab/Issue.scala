@@ -10,5 +10,5 @@ case class Issue(r: Report, kagemaiUrl: URL) extends Task {
 
   override def title = report.title
 
-  override def description = report.body + "\n\n" + kagemaiUrl
+  override def description = report.body + "\n\n" + kagemaiUrl + s"&id=${report.id}"
 }
