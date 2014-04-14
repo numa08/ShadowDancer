@@ -1,5 +1,5 @@
 [app]
-  version: 0.6.0
+  version: 0.7.0
   org: net.numa08
   name: sdancer
   class: net.numa08.App

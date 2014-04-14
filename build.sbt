@@ -4,7 +4,7 @@ organization := "net.numa08"
 
 name := "sdancer"
 
-version := "0.6.0"
+version := "0.7.0"
 
 resolvers += "Local" at "file://" + Path.userHome.absolutePath + "/.m2/repository"
 
