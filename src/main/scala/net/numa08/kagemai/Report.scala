@@ -33,7 +33,7 @@ object Report {
     type Status = Value
     val New, Accepted, Reservation, Fixed, Deferred, Resolved = Value
 
-    private val jaNames = Map("新規" -> New, "受付済み" -> Accepted, "保留" -> Reservation, "修正済み" -> Fixed, "却下" -> Deferred, "完了" -> Resolved)
+    private val jaNames = Map("新規" -> New, "受付済" -> Accepted, "保留" -> Reservation, "修正済" -> Fixed, "却下" -> Deferred, "完了" -> Resolved)
 
     def withJAName(name: String): Status = {
       val status = jaNames.get(name)
