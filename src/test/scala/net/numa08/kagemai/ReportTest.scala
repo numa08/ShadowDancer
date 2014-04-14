@@ -86,4 +86,10 @@ class ReportTest extends FunSuite {
     val active = Report.Status.active
     assert(active.contains(s))
   }
+
+  test("load status") {
+    val xml = XML.loadString("""<?xml version="1.0" encoding="EUC-JP"?> <report id="2"> <message id="1" date="2014-04-13 23:42:15" hide="false" ip_addr="10.0.2.2"> <element id="email">numa08@numa.jp</element> <element id="title">完了済みのレポート</element> <element id="status">新規</element> <element id="body">このレポートは完了済みなんだぜ</element> <element id="attachment"></element> <option id="email_notification" value="false" /> </message> <message id="2" date="2014-04-13 23:51:20" hide="false" ip_addr="10.0.2.2"> <element id="email">numa08@numa.jp</element> <element id="title">完了済みのレポート</element> <element id="status">完了</element> <element id="body">&gt; このレポートは完了済みなんだぜ</element> <element id="attachment"></element> <option id="email_notification" value="false" /> </message> </report>""")
+    val report = Report.byXml(xml)
+    assert(report.status == Report.Status.Resolved)
+  }
 }

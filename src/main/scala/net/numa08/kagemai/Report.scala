@@ -13,10 +13,17 @@ object Report {
       case e: Exception => Option(-1)
     }
 
-    val values = List("email", "title", "body", "status").map { id =>
+    val reportInitData = List("email", "title", "body").map { id =>
       val value = (elem \\ "message" headOption).map(_ \ "element").map(_ filter (_ \ "@id" contains (Text(id)))).map(_.headOption.map(_.text).getOrElse("")).getOrElse("")
       (id, value)
-    }.toMap
+    }
+
+    val reportLasData = List("status").map { id =>
+      val value = (elem \\ "message" lastOption).map(_ \ "element").map(_ filter (_ \ "@id" contains (Text(id)))).map(_.lastOption.map(_.text).getOrElse("")).getOrElse("")
+      (id, value)
+    }
+
+    val values = (reportInitData ++ reportLasData).toMap
 
     (for {
       id <- idValue
